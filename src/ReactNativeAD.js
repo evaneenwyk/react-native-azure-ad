@@ -245,12 +245,15 @@ export default class ReactNativeAD {
         let policy = this.config.policy;
         let tokenUrl = this.config.token_uri ? this.config.token_uri : defaultTokenUrl
 
-        // tokenUrl = tokenUrl.replace('<policy>', policy)
         if (policy) {
           tokenUrl += "?p=" + policy
         }
 
+        log.verbose('Request Url: ' + tokenUrl)
+
         let body = `grant_type=${grantType}${_serialize(params)}`
+        log.verbose('Body: ' + body)
+
         fetch(tokenUrl, {
           method: 'POST',
           mode: 'cors',

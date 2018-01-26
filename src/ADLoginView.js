@@ -219,32 +219,34 @@ export default class ADLoginView extends React.Component {
 
     let adConfig:ADConfig = this.props.context.getConfig()
 
-    let {client_id=null, redirect_uri=null, client_secret=null, resources=null} = adConfig
+    let {client_id=null, redirect_uri=null, client_secret=null, resources=null, scope=null} = adConfig
     // Transform resource string to array
-    if( typeof resources === 'string')
-      resources = [resources]
-    else if(Array.isArray(resources))
-      resources = resources.length === 0 ? null : resources
+    // if( typeof resources === 'string')
+    //   resources = [resources]
+    // else if(Array.isArray(resources))
+    //   resources = resources.length === 0 ? null : resources
 
-    log.verbose('ADLoginView get access token for resources=', resources)
+    // log.verbose('ADLoginView get access token for resources=', resources)
 
     let promises:Array<Promise> = []
-    let config = { client_id, redirect_uri, code, client_secret,
+    let config = { client_id, redirect_uri, code, client_secret, scope
       // set resource to common by default
-      resource : 'common'
+      // resource : 'common'
     }
 
-    if(resources === null || resources === void 0)
-    {
+    // if(resources === null || resources === void 0)
+    // {
       promises.push(context.grantAccessToken(CONST.GRANT_TYPE.AUTHORIZATION_CODE, config))
-    }
+    // }
     // Get access_token for each resource
-    else {
-      promises = resources.map( (rcs, i) => {
-        let cfg = Object.assign({}, config, {resource : rcs})
-        return context.grantAccessToken(CONST.GRANT_TYPE.AUTHORIZATION_CODE , cfg)
-      })
-    }
+    // else {
+    //   promises = resources.map( (rcs, i) => {
+    //     let cfg = Object.assign({}, config, {resource : rcs})
+    //     log.verbose('CFG params')
+    //     log.verbose(cfg)
+    //     return context.grantAccessToken(CONST.GRANT_TYPE.AUTHORIZATION_CODE , cfg)
+    //   })
+    // }
     return Promise.all(promises).then((resps:Array<GrantTokenResp>) => {
 
       log.verbose('ADLoginView response access info ', resps)
