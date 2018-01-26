@@ -121,20 +121,25 @@ export default class ADLoginView extends React.Component {
 
     let authUrl = String(this.props.authority_host || loginUrl).replace('<tenant id>', tenant)
     let context = this.props.context || null
-    let redirect = context.getConfig().redirect_uri
-    let prompt = context.getConfig().prompt
 
-    let policy = context.getConfig().policy
+    let adConfig:ADConfig = context.getConfig()
+    let redirect = adConfig.redirect_uri
+    let prompt = adConfig.prompt
+
+    let policy = adConfig.policy
+    log.debug('Policy: ' + policy)
 
     if(context !== null) {
       let result = `${authUrl}?response_type=code` +
-             `&client_id=${context.getConfig().client_id}` +
-             (redirect ? `&redirect_url=${context.getConfig().redirect_uri}&nonce=rnad-${Date.now()}` : '') +
-             (prompt ? `&prompt=${context.getConfig().prompt}` : '') + 
-             (policy ? `&p=${context.getConfig().policy}`: '')
-             
+             `&client_id=${adConfig.client_id}` +
+             (redirect ? `&redirect_url=${adConfig.redirect_uri}&nonce=rnad-${Date.now()}` : '') +
+             (prompt ? `&prompt=${adConfig.prompt}` : '') + 
+             (policy ? `&p=${adConfig.policy}`: '')
+         
+             log.debug('ADLoginView Url: ' + result)
+
       if(this._needRedirect)
-        result = `https://login.windows.net/${this.props.context.getConfig().client_id}/oauth2/logout`
+        result = `https://login.windows.net/${adConfig.client_id}/oauth2/logout`
       return result
     }
     else {
