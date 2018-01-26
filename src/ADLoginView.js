@@ -127,6 +127,7 @@ export default class ADLoginView extends React.Component {
     let adConfig:ADConfig = context.getConfig()
     let redirect = adConfig.redirect_uri
     let prompt = adConfig.prompt
+    let scope = adConfig.scope
 
     let policy = adConfig.policy
     // authUrl = authUrl.replace('<policy>', policy)
@@ -138,7 +139,7 @@ export default class ADLoginView extends React.Component {
              (redirect ? `&redirect_url=${adConfig.redirect_uri}&nonce=rnad-${Date.now()}` : '') +
              (prompt ? `&prompt=${adConfig.prompt}` : '')  //+ 
              (policy ? `&p=${adConfig.policy}`: '') + 
-             (resource ? `&scope=${adConfig.resources}`:'')
+             (scope ? `&scope=${adConfig.scope}`:'')
          
              log.debug('ADLoginView Url: ' + result)
 

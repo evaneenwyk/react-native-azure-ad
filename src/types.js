@@ -8,7 +8,8 @@ export type ADConfig = {
   prompt : string | null,
   resources : Array<string> | null,
   token_uri: string | null,
-  policy: string | null
+  policy: string | null,
+  scope: string | null
 };
 
 export type ADCredentials = {
