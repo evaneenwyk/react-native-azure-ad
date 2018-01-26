@@ -229,9 +229,9 @@ export default class ADLoginView extends React.Component {
     // log.verbose('ADLoginView get access token for resources=', resources)
 
     let promises:Array<Promise> = []
-    let config = { code 
+    let config = { code, 
       // set resource to common by default
-      // resource : 'common'
+      resource : adConfig.scope
     }
 
     // if(resources === null || resources === void 0)
