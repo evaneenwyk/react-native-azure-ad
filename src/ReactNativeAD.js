@@ -4,7 +4,7 @@ import CONST from './const.js'
 import Timer from 'react-timer-mixin'
 import log from './logger'
 
-const defaultTokenUrl = 'https://login.microsoftonline.com/common/oauth2/v2.0/token'
+const defaultTokenUrl = 'https://login.microsoftonline.com/tfp/common/<policy>/oauth2/v2.0/token'
 
 import type { ADConfig, ADCredentials, GrantTokenResp, ReactNativeADConfig, ReactNativeADCredential } from './types';
 
@@ -243,10 +243,12 @@ export default class ReactNativeAD {
 
         // Append Policy variable to request
         let policy = this.config.policy;
-        let tokenUrl = this.config.token_uri ? this.config.token_uri : defaultTokenUrl;
-        if (policy) {
-          tokenUrl += "?p=" + policy
-        }
+        let tokenUrl = this.config.token_uri ? this.config.token_uri : defaultTokenUrl
+
+        tokenUrl = tokenUrl.replace('<policy>', policy)
+        // if (policy) {
+        //   tokenUrl += "?p=" + policy
+        // }
 
         let body = `grant_type=${grantType}${_serialize(params)}`
         fetch(tokenUrl, {
