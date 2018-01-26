@@ -133,12 +133,13 @@ export default class ADLoginView extends React.Component {
     // authUrl = authUrl.replace('<policy>', policy)
     log.debug('Policy: ' + policy)
     log.debug('Scope: ' + scope);
+    log.debug('Redirect: ' + redirect);
 
     if(context !== null) {
       log.debug('Building url');
 
       let result = `${authUrl}?response_type=code` +
-             `&client_id=${adConfig.client_id}` +
+             `&client_id=${adConfig.client_id}` + 
              (redirect ? `&redirect_uri=${adConfig.redirect_uri}&nonce=rnad-${Date.now()}` : '') +
              (prompt ? `&prompt=${adConfig.prompt}` : '')  + 
              (policy ? `&p=${adConfig.policy}`: '') + 
