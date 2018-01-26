@@ -231,7 +231,7 @@ export default class ReactNativeAD {
   grantAccessToken(grantType: string, params: any): Promise<GrantTokenResp> {
 
     // If resource is null or undefined, use `common` by default
-    params.resource = params.resource || 'common'
+   // params.resource = params.resource || 'common'
     if (grantType === 'password')
       params['client_id'] = this.config.client_id
     return new Promise((resolve, reject) => {

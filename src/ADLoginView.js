@@ -219,7 +219,7 @@ export default class ADLoginView extends React.Component {
 
     let adConfig:ADConfig = this.props.context.getConfig()
 
-    let {client_id=null, redirect_uri=null, client_secret=null, resources=null, scope=null} = adConfig
+    //let {client_id=null, redirect_uri=null, client_secret=null, resources=null, scope=null} = adConfig
     // Transform resource string to array
     // if( typeof resources === 'string')
     //   resources = [resources]
@@ -229,7 +229,7 @@ export default class ADLoginView extends React.Component {
     // log.verbose('ADLoginView get access token for resources=', resources)
 
     let promises:Array<Promise> = []
-    let config = { client_id, redirect_uri, code, client_secret, scope
+    let config = { code 
       // set resource to common by default
       // resource : 'common'
     }
