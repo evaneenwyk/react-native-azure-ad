@@ -6,7 +6,7 @@ import ReactNativeAD from './ReactNativeAD.js'
 import Timer from 'react-timer-mixin'
 import log from './logger'
 
-const loginUrl = 'https://login.microsoftonline.com/tfp/<tenant id>/<policy>/oauth2/v2.0/authorize'
+const loginUrl = 'https://login.microsoftonline.com/<tenant id>/oauth2/v2.0/authorize'
 const tokenUrl = 'https://login.microsoftonline.com/common/oauth2/token'
 
 export default class ADLoginView extends React.Component {
@@ -129,7 +129,7 @@ export default class ADLoginView extends React.Component {
     let prompt = adConfig.prompt
 
     let policy = adConfig.policy
-    authUrl = authUrl.replace('<policy>', policy)
+    // authUrl = authUrl.replace('<policy>', policy)
     log.debug('Policy: ' + policy)
 
     if(context !== null) {
@@ -137,7 +137,8 @@ export default class ADLoginView extends React.Component {
              `&client_id=${adConfig.client_id}` +
              (redirect ? `&redirect_url=${adConfig.redirect_uri}&nonce=rnad-${Date.now()}` : '') +
              (prompt ? `&prompt=${adConfig.prompt}` : '')  //+ 
-           //  (policy ? `&p=${adConfig.policy}`: '')
+             (policy ? `&p=${adConfig.policy}`: '') + 
+             (resource ? `&scope=${adConfig.resources}`:'')
          
              log.debug('ADLoginView Url: ' + result)
 
