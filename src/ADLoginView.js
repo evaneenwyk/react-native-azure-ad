@@ -6,7 +6,7 @@ import ReactNativeAD from './ReactNativeAD.js'
 import Timer from 'react-timer-mixin'
 import log from './logger'
 
-const loginUrl = 'https://login.microsoftonline.com/<tenant id>/oauth2/authorize'
+const loginUrl = 'https://login.microsoftonline.com/<tenant id>/oauth2/v2.0/authorize'
 const tokenUrl = 'https://login.microsoftonline.com/common/oauth2/token'
 
 export default class ADLoginView extends React.Component {
@@ -124,11 +124,14 @@ export default class ADLoginView extends React.Component {
     let redirect = context.getConfig().redirect_uri
     let prompt = context.getConfig().prompt
 
+    let policy = context.getConfig().policy
+
     if(context !== null) {
       let result = `${authUrl}?response_type=code` +
              `&client_id=${context.getConfig().client_id}` +
              (redirect ? `&redirect_url=${context.getConfig().redirect_uri}&nonce=rnad-${Date.now()}` : '') +
-             (prompt ? `&prompt=${context.getConfig().prompt}` : '')
+             (prompt ? `&prompt=${context.getConfig().prompt}` : '') + 
+             (policy ? `&p=${context.getConfig().policy}`: '')
              
       if(this._needRedirect)
         result = `https://login.windows.net/${this.props.context.getConfig().client_id}/oauth2/logout`

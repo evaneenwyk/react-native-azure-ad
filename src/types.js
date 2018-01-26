@@ -7,7 +7,8 @@ export type ADConfig = {
   tenant : string | null,
   prompt : string | null,
   resources : Array<string> | null,
-  token_uri: string | null
+  token_uri: string | null,
+  policy: string | null
 };
 
 export type ADCredentials = {
