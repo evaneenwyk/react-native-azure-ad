@@ -143,7 +143,7 @@ export default class ADLoginView extends React.Component {
              (redirect ? `&redirect_uri=${adConfig.redirect_uri}&nonce=rnad-${Date.now()}` : '') +
              (prompt ? `&prompt=${adConfig.prompt}` : '')  + 
              (policy ? `&p=${adConfig.policy}`: '') + 
-             (scope ? `&scope=${adConfig.scope}`:'')
+             (scope ? `&scope=${adConfig.scope} offline_access`:'')
          
              log.debug('ADLoginView Url: ' + result)
 

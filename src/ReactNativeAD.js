@@ -314,12 +314,13 @@ function _serialize(params: Object): string {
   let paramStr = ''
   for (let prop in params) {
     if (params[prop] !== null && params[prop] !== void 0 && prop !== 'grant_type') {
-      if (prop == 'scope') {
-        paramStr += `&${prop}=${encodeURIComponent(params[prop])} offline_access`
-      }
-      else {
-        paramStr += `&${prop}=${encodeURIComponent(params[prop])}`
-      }
+      paramStr += `&${prop}=${encodeURIComponent(params[prop])}`
+      // if (prop == 'scope') {
+      //   paramStr += `&${prop}=${encodeURIComponent(params[prop])} offline_access`
+      // }
+      // else {
+      //   paramStr += `&${prop}=${encodeURIComponent(params[prop])}`
+      // }
     }
       // paramStr += `&${prop}=${encodeURIComponent(params[prop])}`
   }
